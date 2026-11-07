@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bé Nhận Biết Rau Củ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="card">
+  <section id="start">
+    <div class="fruit" aria-hidden="true" style="font-size:64px;margin-bottom:8px">🥕🥦🌽</div>
+    <h1><span>Bé</span> <span>Nhận</span> <span>Biết</span> <span>Rau</span> <span>Củ</span></h1>
+    <p>10 câu hỏi — nghe cô hỏi rồi chọn đúng hình rau củ nhé</p>
+    <button class="btn" id="startBtn">Bắt đầu</button>
+  </section>
+
+  <section id="quiz" hidden>
+    <div class="top">
+      <span id="count">Câu 1/10</span>
+      <button class="replay" id="replayBtn" aria-label="Nghe lại câu hỏi">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>
+        Nghe lại
+      </button>
+      <span id="points">⭐ 0</span>
+    </div>
+    <div class="bar" aria-hidden="true"><div id="progress"></div></div>
+    <div class="question" id="qText"></div>
+    <div class="fruit" id="show" aria-hidden="true" hidden></div>
+    <div class="answers" id="answers"></div>
+    <div class="feedback" id="feedback" aria-live="polite"></div>
+  </section>
+
+  <section id="result" hidden>
+    <h1><span>Giỏi</span> <span>quá</span><span>!</span></h1>
+    <div class="score" id="finalScore"></div>
+    <div class="stars" id="stars" aria-hidden="true"></div>
+    <p id="resultMsg"></p>
+    <button class="btn" id="againBtn">Chơi lại</button>
+  </section>
+</main>
+
+<script>
+// shortcut: pictures are emoji (look differs slightly per device); swap for SVG/PNG if exact art matters.
+const VEG = {
+  "Cà rốt": ["🥕", "củ cà rốt"], "Súp lơ": ["🥦", "súp lơ xanh"], "Ngô": ["🌽", "bắp ngô"], "Cà chua": ["🍅", "quả cà chua"],
+  "Cà tím": ["🍆", "quả cà tím"], "Khoai tây": ["🥔", "củ khoai tây"], "Dưa chuột": ["🥒", "quả dưa chuột"],
+  "Rau cải": ["🥬", "rau cải"], "Ớt": ["🌶️", "quả ớt"], "Hành tây": ["🧅", "củ hành tây"],
+};
+
+window.GAME = {
+  known: VEG, audioDir: "audio", readOptions: false, pics: true,
+  option(b, name) { b.textContent = VEG[name][0]; b.setAttribute("aria-label", VEG[name][1]); },
+  wrongText: q => `Chưa đúng rồi, đây mới là ${VEG[q.answer][1]} nè!`,
+  questions: [
+    { answer: "Cà rốt",    q: "Đâu là củ cà rốt?",     options: ["Cà chua", "Cà rốt", "Súp lơ"] },
+    { answer: "Súp lơ",    q: "Đâu là súp lơ xanh?",   options: ["Súp lơ", "Ngô", "Cà tím"] },
+    { answer: "Ngô",       q: "Đâu là bắp ngô?",       options: ["Khoai tây", "Ớt", "Ngô"] },
+    { answer: "Cà chua",   q: "Đâu là quả cà chua?",   options: ["Cà chua", "Dưa chuột", "Hành tây"] },
+    { answer: "Cà tím",    q: "Đâu là quả cà tím?",    options: ["Cà rốt", "Cà tím", "Rau cải"] },
+    { answer: "Khoai tây", q: "Đâu là củ khoai tây?",  options: ["Ngô", "Khoai tây", "Cà chua"] },
+    { answer: "Dưa chuột", q: "Đâu là quả dưa chuột?", options: ["Dưa chuột", "Ớt", "Súp lơ"] },
+    { answer: "Rau cải",   q: "Đâu là rau cải?",       options: ["Cà tím", "Ngô", "Rau cải"] },
+    { answer: "Ớt",        q: "Đâu là quả ớt?",        options: ["Ớt", "Khoai tây", "Súp lơ"] },
+    { answer: "Hành tây",  q: "Đâu là củ hành tây?",   options: ["Dưa chuột", "Hành tây", "Cà rốt"] },
+  ],
+};
+</script>
+<script src="quiz.js"></script>
+</body>
+</html>
